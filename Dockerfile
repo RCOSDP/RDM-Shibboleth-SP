@@ -3,9 +3,9 @@ FROM centos:7.9.2009
 EXPOSE 443/tcp 80/tcp
 
 ENV SHIBBOLETH_VERSION="3.4.1-1" \
-    APACHE_VERSION="2.4.6-99.el7.centos.1"
+    APACHE_VERSION="24u"
 
-RUN yum -y update && yum -y install wget && wget --no-check-certificate https://shibboleth.net/cgi-bin/sp_repo.cgi?platform=CentOS_7 -O /etc/yum.repos.d/shibboleth.repo && yum -y install httpd-${APACHE_VERSION} mod_ssl shibboleth-${SHIBBOLETH_VERSION} && yum -y clean all
+RUN yum -y update && yum -y install wget && wget --no-check-certificate https://shibboleth.net/cgi-bin/sp_repo.cgi?platform=CentOS_7 -O /etc/yum.repos.d/shibboleth.repo && yum -y install epel-release && yum -y install https://repo.ius.io/ius-release-el7.rpm && yum -y install httpd${APACHE_VERSION} httpd${APACHE_VERSION}-mod_ssl shibboleth-${SHIBBOLETH_VERSION} && yum -y clean all
 
 RUN echo "export LD_LIBRARY_PATH=/opt/shibboleth/lib64:$LD_LIBRARY_PATH" >> /etc/sysconfig/shibd && echo "export SHIBD_USER=shibd" >> /etc/sysconfig/shibd && sed -i -e "s|log4j.appender.shibd_log=.*$|log4j.appender.shibd_log=org.apache.log4j.ConsoleAppender|" -e "s|log4j.appender.warn_log=.*$|log4j.appender.warn_log=org.apache.log4j.ConsoleAppender|" -e "s|log4j.appender.tran_log=.*$|log4j.appender.tran_log=org.apache.log4j.ConsoleAppender|" -e "s|log4j.appender.sig_log=.*$|log4j.appender.sig_log=org.apache.log4j.ConsoleAppender|" /etc/shibboleth/shibd.logger
 
