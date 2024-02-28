@@ -5,7 +5,7 @@ set -e
 
 shibd="/usr/sbin/shibd"
 SHIBD_USER=root
-SHIBD_WAIT=7200
+SHIBD_WAIT=30
 prog=shibd
 
 [ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
