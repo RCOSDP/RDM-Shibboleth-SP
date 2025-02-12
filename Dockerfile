@@ -18,6 +18,8 @@ RUN sed -i -r -e "s|^(\s*ErrorLog)\s+\S+|\1 /dev/stderr|" -e 's|^(\s*CustomLog)\
 # RUN sed -i '$aHTTPD_LANG=en_US.UTF-8' /etc/sysconfig/httpd
 RUN sed -i -e "s/LANG=C/LANG=en_US.UTF-8/" /etc/sysconfig/httpd
 
+COPY edugain-v2.xml /etc/shibboleth/
+
 COPY httpd-shibd-foreground /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/httpd-shibd-foreground
