@@ -18,7 +18,9 @@ RUN sed -i -r -e "s|^(\s*ErrorLog)\s+\S+|\1 /dev/stderr|" -e 's|^(\s*CustomLog)\
 # RUN sed -i '$aHTTPD_LANG=en_US.UTF-8' /etc/sysconfig/httpd
 RUN sed -i -e "s/LANG=C/LANG=en_US.UTF-8/" /etc/sysconfig/httpd
 
-COPY edugain-backing.xml /var/cache/shibboleth/
+RUN wget -O /var/cache/shibboleth/edugain-backing.xml https://metadata.gakunin.nii.ac.jp/edugain-v2.xml
+
+#COPY edugain-backing.xml /var/cache/shibboleth/
 
 COPY httpd-shibd-foreground /usr/local/bin/
 
