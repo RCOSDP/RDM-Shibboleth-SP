@@ -18,7 +18,7 @@ RUN sed -i -r -e "s|^(\s*ErrorLog)\s+\S+|\1 /dev/stderr|" -e 's|^(\s*CustomLog)\
 # RUN sed -i '$aHTTPD_LANG=en_US.UTF-8' /etc/sysconfig/httpd
 RUN sed -i -e "s/LANG=C/LANG=en_US.UTF-8/" /etc/sysconfig/httpd
 
-COPY mdq-cert.pem /etc/shibboleth/
+COPY mdq-signing-cert.pem /etc/shibboleth/
 
 COPY httpd-shibd-foreground /usr/local/bin/
 
